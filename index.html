@@ -3,15 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mengalihkan...</title>
-
-    <meta http-equiv="refresh" content="0;url=https://alamat-tujuan-anda.com">
+    <title>Mengalihkan Halaman...</title>
+    
+    <script type="text/javascript">
+        const TARGET_URL = "https://posonline.great-site.net/pos/warung_tri/server";
+    </script>
 
     <script type="text/javascript">
-        window.location.href = "https://alamat-tujuan-anda.com";
+        // Injeksi meta refresh secara dinamis agar tidak perlu nulis URL 2x
+        const meta = document.createElement('meta');
+        meta.httpEquiv = "refresh";
+        meta.content = `3;url=${TARGET_URL}`;
+        document.head.appendChild(meta);
+
+        // Fungsi eksekusi pindah halaman
+        function doRedirect() {
+            window.location.href = TARGET_URL;
+        }
     </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px 60px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 90%;
+            width: 450px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        .loader-box {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px auto;
+        }
+
+        .circle-loader {
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: #00f2fe;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .countdown-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
+            color: #00f2fe;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn-redirect {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e3c72;
+            background: #ffffff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-redirect:hover {
+            background: #00f2fe;
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.4);
+        }
+    </style>
 </head>
 <body>
-    <p>Jika halaman tidak berpindah secara otomatis, <a href="https://alamat-tujuan-anda.com">klik di sini</a>.</p>
+
+    <div class="container">
+        <div class="loader-box">
+            <div class="circle-loader"></div>
+            <div class="countdown-text" id="countdown">3</div>
+        </div>
+
+        <h2>Mengalihkan Halaman</h2>
+        <p>Anda sedang diarahkan ke aplikasi POS otomatis...</p>
+
+        <button class="btn-redirect" id="redirectBtn">
+            Buka Sekarang 
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+    </div>
+
+    <script type="text/javascript">
+        let timeLeft = 3;
+        const countdownElement = document.getElementById('countdown');
+        const buttonElement = document.getElementById('redirectBtn');
+
+        // Hubungkan klik tombol ke fungsi redirect
+        buttonElement.addEventListener('click', doRedirect);
+
+        // Jalankan hitung mundur visual
+        const timer = setInterval(() => {
+            timeLeft--;
+            if (timeLeft <= 0) {
+                countdownElement.textContent = "✓";
+                clearInterval(timer);
+                doRedirect();
+            } else {
+                countdownElement.textContent = timeLeft;
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
